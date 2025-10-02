@@ -1,0 +1,8 @@
+dataset_size: 100
+max_sentence_length: 8
+tasks:
+  - lm
+  - parsing
+  - nl2sem
+  - sem2nl
+random_seed: 42

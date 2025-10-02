@@ -1,0 +1,10 @@
+# Simple grammar for toy sentences
+start: S
+S -> NP VP
+NP -> Det N | Name
+VP -> V NP | V Adv
+Det -> the | a
+N -> cat | dog
+Name -> alice | bob
+V -> runs | walks | chases | sees
+Adv -> quickly | slowly
