@@ -1,0 +1,46 @@
+# Базовая конфигурация для обучения трансформера на игрушечных языках
+
+data:
+  task: lm                # lm | parsing | sem_to_nl | copy
+  train_path: data/datasets/train.jsonl
+  val_path: data/datasets/val.jsonl
+  test_path: data/datasets/test.jsonl
+  dict_paths:
+    - data/dicts/base.txt
+  max_seq_len: 64
+  batch_size: 32
+
+model:
+  architecture: encoder_decoder  # encoder_only | encoder_decoder
+  d_model: 128
+  n_heads: 4
+  n_layers: 4
+  ffn_dim: 256
+  dropout: 0.1
+
+training:
+  num_epochs: 20
+  learning_rate: 3e-4
+  weight_decay: 0.0
+  warmup_steps: 100
+  gradient_clip: 1.0
+  train_steps: null        # ограничение шагов на эпоху (null = весь датасет)
+  eval_steps: null
+  curriculum:
+    enabled: true
+    schedule: linear       # linear | exponential | manual
+    start_fraction: 0.2
+    end_fraction: 1.0
+    manual_boundaries: []
+  checkpoint_dir: checkpoints
+  log_dir: logs
+  log_interval: 50
+  eval_interval: 200
+  use_wandb: false
+  wandb_project: toy-lang-transformer
+
+analysis:
+  attention_layers: all
+  attention_heads: all
+  embedding_reduce: tsne   # pca | tsne
+  rollout_depth: full

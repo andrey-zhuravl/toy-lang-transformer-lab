@@ -1,0 +1,12 @@
+alice
+bob
+runs
+walks
+quickly
+slowly
+the
+a
+cat
+dog
+chases
+sees
