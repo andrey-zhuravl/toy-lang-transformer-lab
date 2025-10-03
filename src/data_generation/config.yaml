@@ -6,3 +6,17 @@ tasks:
   - nl2sem
   - sem2nl
 random_seed: 42
+world_mode: false
+world_config: "src/world/world_config.yaml"
+world_tasks:
+  - world_qa
+  - world_parsing
+  - world_sem2nl
+  - world_effect
+splits:
+  train: 0.8
+  val: 0.1
+  test: 0.1
+holdout:
+  objects: []
+  episode_len: []
