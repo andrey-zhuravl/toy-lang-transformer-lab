@@ -1,5 +1,3 @@
-"""Utilities for managing vocabularies used by toy language datasets."""
-
 from __future__ import annotations
 
 import json
@@ -7,23 +5,12 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional
 
-SPECIAL_TOKENS = {
-    "pad": "<PAD>",
-    "bos": "<BOS>",
-    "eos": "<EOS>",
-    "unk": "<UNK>",
-    "span": "<SPAN>",
-}
+from .constants import SPECIAL_TOKENS
 
 
 @dataclass
 class Vocabulary:
-    """Bidirectional mapping between tokens and ids.
-
-    The class stores counts for optional pruning and exposes helpers for
-    serialization. Special tokens are automatically added if not provided in the
-    initial set.
-    """
+    """Bidirectional mapping between tokens and ids."""
 
     tokens: Iterable[str] = field(default_factory=list)
     add_special_tokens: bool = True
@@ -123,17 +110,3 @@ class Vocabulary:
         for token in tokens.values():
             if token not in self.token_to_id:
                 self._add_token(token)
-
-
-def build_vocabulary_from_files(paths: Iterable[str | Path], lowercase: bool = False) -> Vocabulary:
-    tokens = []
-    for path in paths:
-        with Path(path).open("r", encoding="utf-8") as f:
-            for line in f:
-                token = line.strip()
-                if not token:
-                    continue
-                if lowercase:
-                    token = token.lower()
-                tokens.append(token)
-    return Vocabulary(tokens=tokens)

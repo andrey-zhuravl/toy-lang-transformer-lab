@@ -1,21 +1,8 @@
-"""Utilities for performing architectural ablations on the toy transformer."""
-
 from __future__ import annotations
 
-from dataclasses import dataclass
 from typing import Dict, Iterable, List
 
-import torch
-
-from .model import ToyTransformer
-
-
-@dataclass
-class AblationConfig:
-    disable_layers: List[int] | None = None
-    disable_heads: Dict[int, List[int]] | None = None
-    freeze_modules: Iterable[str] | None = None
-    dropout_overrides: Dict[str, float] | None = None
+from src.models import ToyTransformer
 
 
 def apply_layer_ablation(model: ToyTransformer, layers: Iterable[int]) -> None:
@@ -45,15 +32,3 @@ def override_dropout(model: ToyTransformer, overrides: Dict[str, float]) -> None
     for name, module in model.named_modules():
         if name in overrides and hasattr(module, "p"):
             module.p = overrides[name]
-
-
-def apply_ablation(model: ToyTransformer, config: AblationConfig) -> ToyTransformer:
-    if config.disable_layers:
-        apply_layer_ablation(model, config.disable_layers)
-    if config.disable_heads:
-        apply_head_ablation(model, config.disable_heads)
-    if config.freeze_modules:
-        freeze_parameters(model, config.freeze_modules)
-    if config.dropout_overrides:
-        override_dropout(model, config.dropout_overrides)
-    return model
