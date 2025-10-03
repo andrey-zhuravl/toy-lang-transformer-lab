@@ -191,7 +191,7 @@ def train_loop(config: Dict[str, object]) -> None:
     data_cfg = config.get("data", {})
     training_cfg = config.get("training", {})
 
-    dict_paths = [Path(p) for p in data_cfg.get("dict_paths", ["data/dicts/base.txt"])]
+    dict_paths = [Path(p) for p in data_cfg.get("dict_paths")]
     vocab = build_vocabulary_from_files(dict_paths)
     tokenizer_type = data_cfg.get("tokenizer", "word")
     tokenizer = setup_tokenizer(vocab, tokenizer_type)
