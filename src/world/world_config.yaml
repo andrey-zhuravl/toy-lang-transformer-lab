@@ -1,0 +1,32 @@
+world:
+  num_agents: 1
+  num_objects: 2
+  num_locations: 2
+  max_episode_len: 8
+  allow_coref: true
+  names_mode: "closed"
+  random_seed: 42
+
+actions:
+  - name: идти
+    schema: [АГЕНТ, ЛОКАЦИЯ]
+    pre: []
+    eff:
+      - "loc(АГЕНТ)=ЛОКАЦИЯ"
+  - name: взять
+    schema: [АГЕНТ, ПРЕДМЕТ]
+    pre:
+      - "loc(АГЕНТ)=loc(ПРЕДМЕТ)"
+    eff:
+      - "has(АГЕНТ,ПРЕДМЕТ)=true"
+  - name: положить
+    schema: [АГЕНТ, ПРЕДМЕТ]
+    pre:
+      - "has(АГЕНТ,ПРЕДМЕТ)=true"
+    eff:
+      - "has(АГЕНТ,ПРЕДМЕТ)=false"
+      - "loc(ПРЕДМЕТ)=loc(АГЕНТ)"
+
+render:
+  template_style: "grammar"
+  use_quotes_for_spans: true

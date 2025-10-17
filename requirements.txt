@@ -1,0 +1,9 @@
+torch
+numpy
+tqdm
+pyyaml
+matplotlib
+seaborn
+scikit-learn
+tensorboard
+wandb

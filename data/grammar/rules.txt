@@ -1,0 +1,9 @@
+S -> N V N
+S -> N V
+N -> Adj N
+N -> Num N
+N -> много N
+N -> NOUN
+Adj -> ADJ
+Num -> NUM
+V -> VERB
